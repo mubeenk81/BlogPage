@@ -77,4 +77,9 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
+
 require __DIR__.'/auth.php';

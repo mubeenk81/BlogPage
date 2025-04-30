@@ -11,11 +11,11 @@ class CommentSeeder extends Seeder
 {
     public function run()
     {
-        // Assumes posts and users exist
         Post::all()->each(function ($post) {
             Comment::factory(5)->create([
-                'post_id' => $post->id,
-                'user_id' => User::all()->random()->id, // Random user for each comment
+                'commentable_id' => $post->id,
+                'commentable_type' => Post::class,
+                'user_id' => User::all()->random()->id,
             ]);
         });
     }

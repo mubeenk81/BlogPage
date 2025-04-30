@@ -13,23 +13,20 @@ use Carbon\Carbon;
  */
 class CommentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     protected $model = Comment::class;
 
     public function definition(): array
     {
-        $faker = \Faker\Factory::create('en_US'); // Set locale to English
+        $post = Post::all()->random();
 
         return [
             'user_id' => User::all()->random()->id,
-            'post_id' => Post::all()->random()->id,
+            'commentable_id' => $post->id,
+            'commentable_type' => Post::class,
             'content' => $this->faker->sentence,
-            'created_at' => Carbon::instance($this->faker->dateTimeThisYear())->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::instance($this->faker->dateTimeThisYear())->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::instance($this->faker->dateTimeThisYear()),
+            'updated_at' => Carbon::instance($this->faker->dateTimeThisYear()),
+
         ];
     }
 }
